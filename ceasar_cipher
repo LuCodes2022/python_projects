@@ -1,0 +1,42 @@
+alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+
+direction = input("Type 'encode' to encrypt, type 'decode' to decrypt:\n")
+#I create a while-loop so if the input is anything but encode or decode the user is prompted to give an answer that can be understood by the program
+while direction != "encode" and direction != "decoded":
+    direction = input("Wrong input pype 'encode' to encrypt, type 'decode' to decrypt:\n ")
+text = input("Type your message:\n").lower()
+shift = int(input("Type the shift number:\n"))
+
+#for the function encrypt we know we have two inputs so I put fields that would be corresponding and can later on assign them to text and shift when I call the function. I then create a for loop that finds the current position of each letter in the text in the list alphabet. Then with the position create a new position by adding shift to the old one. I use that new position to then find what each letter will be corresponding to and finally add each to the empty string cipher_text we created earlier. After that I use an f string to show the user what the encoded text is.
+def encrypt(plain_text, shift_amount):
+  cipher_text = ""
+  for letter in plain_text:
+    position = alphabet.index(letter)
+    new_position = position + shift_amount
+    cipher_text += alphabet[new_position]
+  print(f"The encoded text is {cipher_text}")
+
+#TODO-1: Create a different function called 'decrypt' that takes the 'text' and 'shift' as inputs.
+#the function decrypt is very similar to encrypt, however, we compare the encoded position to the actual position to get the message decyphered. We substract the shift from encoded position to get the actual position needed to find the letter with the correct index in the list alphabet.
+def decrypt(e_text, shift_back):
+  d_text = ""
+  for letter in e_text:
+    enc_position = alphabet.index(letter)
+    actual_position = enc_position - shift_back
+    d_text += alphabet[actual_position]
+  print(f"The decoded text is {d_text}")
+  #TODO-2: Inside the 'decrypt' function, shift each letter of the 'text' *backwards* in the alphabet by the shift amount and print the decrypted text.  
+  #e.g. 
+  #cipher_text = "mjqqt"
+  #shift = 5
+  #plain_text = "hello"
+  #print output: "The decoded text is hello"
+
+
+#TODO-3: Check if the user wanted to encrypt or decrypt the message by checking the 'direction' variable. Then call the correct function based on that 'drection' variable. You should be able to test the code to encrypt *AND* decrypt a message.
+#to check if the user wants to encrypt or decrypt I do an if statement. I have already created a while loop if the answer is anything else than thos two options therefore I can just use if and else to give both options.
+
+if direction == "encode":
+  encrypt(plain_text=text, shift_amount=shift)
+else:
+  decrypt(e_text=text, shift_back=shift)
